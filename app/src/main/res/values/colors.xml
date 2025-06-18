@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Colores existentes de Formosa -->
+    <color name="formosa_azul">#1976D2</color>
+    <color name="formosa_celeste">#E3F2FD</color>
+    <color name="formosa_verde">#4CAF50</color>
+
+    <!-- Colores adicionales para el diseño mejorado -->
+    <color name="formosa_azul_light">#BBDEFB</color>
+    <color name="formosa_celeste_light">#F3F9FF</color>
+    <color name="formosa_verde_light">#C8E6C9</color>
+    <color name="gray_light">#F5F5F5</color>
+    <color name="gray_medium">#BDBDBD</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+</resources>

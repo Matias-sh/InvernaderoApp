@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/formosa_celeste">
+
+    <!-- Toolbar con título e imagen gobierno -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/formosa_azul"
+        android:elevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|start"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Invernadero Inteligente"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <!-- Indicador de estado de conexión -->
+            <TextView
+                android:id="@+id/status_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🟢 Conectado"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp"/>
+
+            <ImageView
+                android:layout_width="160dp"
+                android:layout_height="35dp"
+                android:src="@drawable/logo_gob_todos_unidos_trans"
+                android:scaleType="fitCenter"/>
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Scroll para el contenido -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Última actualización -->
+            <TextView
+                android:id="@+id/last_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Última actualización: --:--"
+                android:textSize="12sp"
+                android:textColor="@color/formosa_azul"
+                android:layout_gravity="end"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Panel Sensores en Tiempo Real -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="📊 Sensores en Tiempo Real"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/formosa_azul"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_refresh"
+                            style="@style/Widget.Material3.Button.IconButton"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:text="🔄"
+                            app:backgroundTint="@color/formosa_celeste"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <!-- Grid de sensores mejorado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Fila 1: Temperatura y Humedad Relativa -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+
+                            <!-- Temperatura -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:background="@drawable/sensor_background"
+                                android:padding="12dp"
+                                android:layout_marginEnd="6dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🌡️"
+                                    android:textSize="24sp"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Temperatura"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/formosa_azul"/>
+
+                                <TextView
+                                    android:id="@+id/valor_temperatura"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--°C"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/black"/>
+                            </LinearLayout>
+
+                            <!-- Humedad Relativa -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:background="@drawable/sensor_background"
+                                android:padding="12dp"
+                                android:layout_marginStart="6dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="💧"
+                                    android:textSize="24sp"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Humedad Relativa"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/formosa_azul"/>
+
+                                <TextView
+                                    android:id="@+id/valor_humedad_relativa"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--%"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/black"/>
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <!-- Fila 2: Humedad del Suelo y CO₂ -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <!-- Humedad del Suelo -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:background="@drawable/sensor_background"
+                                android:padding="12dp"
+                                android:layout_marginEnd="6dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🌱"
+                                    android:textSize="24sp"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Humedad Suelo"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/formosa_azul"/>
+
+                                <TextView
+                                    android:id="@+id/valor_humedad_suelo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="--%"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/black"/>
+                            </LinearLayout>
+
+                            <!-- CO₂ -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:background="@drawable/sensor_background"
+                                android:padding="12dp"
+                                android:layout_marginStart="6dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="🫁"
+                                    android:textSize="24sp"
+                                    android:layout_gravity="center_horizontal"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="CO₂"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/formosa_azul"/>
+
+                                <TextView
+                                    android:id="@+id/valor_co2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="-- ppm"
+                                    android:textSize="18sp"
+                                    android:textStyle="bold"
+                                    android:layout_gravity="center_horizontal"
+                                    android:textColor="@color/black"/>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Panel de Control de Mallas -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🕸️ Control de Mallas"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/formosa_azul"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Malla 1 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Malla 1"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/formosa_azul"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla1_subir"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬆️"
+                            app:backgroundTint="@color/formosa_verde"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="8dp"
+                            app:cornerRadius="8dp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla1_bajar"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬇️"
+                            app:backgroundTint="@color/formosa_azul"
+                            android:textSize="18sp"
+                            app:cornerRadius="8dp"/>
+                    </LinearLayout>
+
+                    <!-- Malla 2 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Malla 2"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/formosa_azul"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla2_subir"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬆️"
+                            app:backgroundTint="@color/formosa_verde"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="8dp"
+                            app:cornerRadius="8dp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla2_bajar"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬇️"
+                            app:backgroundTint="@color/formosa_azul"
+                            android:textSize="18sp"
+                            app:cornerRadius="8dp"/>
+                    </LinearLayout>
+
+                    <!-- Malla 3 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Malla 3"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/formosa_azul"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla3_subir"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬆️"
+                            app:backgroundTint="@color/formosa_verde"
+                            android:textSize="18sp"
+                            android:layout_marginEnd="8dp"
+                            app:cornerRadius="8dp"/>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_malla3_bajar"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="⬇️"
+                            app:backgroundTint="@color/formosa_azul"
+                            android:textSize="18sp"
+                            app:cornerRadius="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Panel de Controles Generales -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="⚙️ Controles Generales"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/formosa_azul"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Fila de botones principales -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <!-- Botón Modo -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_modo"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:text="🔄 MODO\nAUTO"
+                            app:backgroundTint="@color/formosa_verde"
+                            android:layout_marginEnd="8dp"
+                            app:cornerRadius="12dp"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
+
+                        <!-- Botón Iluminación -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btn_iluminacion"
+                            android:layout_width="0dp"
+                            android:layout_height="56dp"
+                            android:layout_weight="1"
+                            android:text="💡 ILUMINACIÓN\nOFF"
+                            app:backgroundTint="@color/formosa_azul"
+                            android:layout_marginStart="8dp"
+                            app:cornerRadius="12dp"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                    <!-- Indicadores de estado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/status_background"
+                        android:padding="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Estado del Sistema:"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/formosa_azul"/>
+
+                        <TextView
+                            android:id="@+id/system_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🟢 Operativo"
+                            android:textSize="14sp"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- FAB para configuración -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_settings"
+        app:backgroundTint="@color/formosa_verde"
+        app:tint="@color/white"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
