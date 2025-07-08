@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.cocido.myapplication"
+    namespace = "com.cocido.invernadero"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.cocido.myapplication"
+        applicationId = "com.cocido.invernadero"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -36,7 +36,10 @@ android {
 }
 
 dependencies {
+    // websocket
+    implementation(libs.okhttp)
 
+    // core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
