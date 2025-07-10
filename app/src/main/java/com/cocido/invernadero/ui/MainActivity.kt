@@ -9,6 +9,8 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import com.google.android.material.snackbar.Snackbar
 import com.cocido.invernadero.models.InvernaderoData
+import androidx.core.content.ContextCompat
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -88,12 +90,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleIluminacion() {
         isLightOn = !isLightOn
+
         val text = if (isLightOn) "ILUMINACIÓN\nON" else "ILUMINACIÓN\nOFF"
-        val icon = if (isLightOn) R.drawable.ic_light_on else R.drawable.ic_light_off
-        iluminacionButton.text = text
-        iluminacionButton.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
+        val icon = if (isAutoMode) R.drawable.ic_light_on else R.drawable.ic_light_off
+
+        iluminacionButton.animate()
+            .alpha(0f)
+            .setDuration(150)
+            .withEndAction {
+                iluminacionButton.text = text
+                iluminacionButton.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
+                iluminacionButton.animate().alpha(1f).setDuration(150).start()
+            }.start()
+
         showFeedback("Iluminación ${if (isLightOn) "encendida" else "apagada"}")
     }
+
+
 
     private fun showFeedback(message: String) {
         Snackbar.make(findViewById(R.id.main), message, Snackbar.LENGTH_SHORT).show()
