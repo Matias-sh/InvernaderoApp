@@ -15,6 +15,7 @@ class SensorWebSocketListener(
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
+        Log.d("WebSocket", "Mensaje recibido: $text")
         try {
             val json = JSONObject(text)
             val data = InvernaderoData(
@@ -32,5 +33,15 @@ class SensorWebSocketListener(
 
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         Log.e("WebSocket", "Fallo de conexión", t)
+
+        response?.let {
+            Log.e("WebSocket", "Código HTTP: ${it.code}")
+            Log.e("WebSocket", "Mensaje: ${it.message}")
+            Log.e("WebSocket", "Cuerpo: ${it.body?.string()}")
+        } ?: run {
+            Log.e("WebSocket", "No hubo respuesta HTTP (response es null)")
+        }
+
+        Log.e("WebSocket", "StackTrace: ${t.stackTraceToString()}")
     }
 }
