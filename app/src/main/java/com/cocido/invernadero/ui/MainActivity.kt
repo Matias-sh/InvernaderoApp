@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun toggleIluminacion() {
         isLightOn = !isLightOn
-
+        /*
         val text = if (isLightOn) "ILUMINACIÓN\nON" else "ILUMINACIÓN\nOFF"
         val icon = if (isAutoMode) R.drawable.ic_light_on else R.drawable.ic_light_off
 
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
                 iluminacionButton.setCompoundDrawablesWithIntrinsicBounds(icon, 0, 0, 0)
                 iluminacionButton.animate().alpha(1f).setDuration(150).start()
             }.start()
-
+        */
         showFeedback("Iluminación ${if (isLightOn) "encendida" else "apagada"}")
     }
 
